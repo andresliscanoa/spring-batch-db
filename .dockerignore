@@ -1,0 +1,13 @@
+.mvn/
+.idea/
+scripts/
+target/
+.*ignore
+Dockerfile
+mvnw
+mvnw.cmd
+*.iml
+*.xml
+*.md
+*.yaml
+!pom.xml

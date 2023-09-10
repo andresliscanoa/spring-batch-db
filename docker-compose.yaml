@@ -1,0 +1,48 @@
+version: '3.8'
+services:
+  app-batch:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db-one
+      - db-two
+    environment:
+      SPRING_DATASOURCE_ONE_URL: jdbc:postgresql://db-one:5432/postgres
+      SPRING_DATASOURCE_TWO_URL: jdbc:postgresql://db-two:5432/postgres
+    networks:
+      - batch-db-network
+  db-one:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - '5432:5432'
+    networks:
+      - batch-db-network
+    volumes:
+      - db-one:/var/lib/postgresql/data
+      - ./scripts/data_one.sql:/docker-entrypoint-initdb.d/data_one.sql
+  db-two:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - '5433:5432'
+    networks:
+      - batch-db-network
+    volumes:
+      - db-two:/var/lib/postgresql/data
+      - ./scripts/data_two.sql:/docker-entrypoint-initdb.d/data_two.sql
+networks:
+  batch-db-network:
+    driver: bridge
+volumes:
+  db-one:
+    driver: local
+  db-two:
+    driver: local

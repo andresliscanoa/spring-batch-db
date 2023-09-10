@@ -1,0 +1,35 @@
+server:
+  port: 8080
+spring:
+  batch:
+    jdbc:
+      initialize-schema: NEVER
+      table-prefix: batch.BATCH_
+    job:
+      enabled: true
+      name: users
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+  datasource:
+    one:
+      driver-class-name: org.postgresql.Driver
+      url: jdbc:postgresql://localhost:5432/postgres
+      username: postgres
+      password: postgres
+    two:
+      driver-class-name: org.postgresql.Driver
+      url: jdbc:postgresql://localhost:5433/postgres
+      username: postgres
+      password: postgres
+logging:
+  level:
+    ROOT: INFO
+    org:
+      hibernate:
+        SQL: DEBUG
+        type: TRACE
