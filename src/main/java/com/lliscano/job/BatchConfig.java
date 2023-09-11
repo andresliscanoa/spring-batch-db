@@ -1,20 +1,18 @@
 package com.lliscano.job;
 
-import com.lliscano.one.entity.UsersOne;
-import com.lliscano.one.repository.UsersOneRepository;
-import com.lliscano.two.entity.UsersTwo;
-import com.lliscano.two.repository.UsersTwoRepository;
+import com.lliscano.databases.one.entity.UsersOne;
+import com.lliscano.databases.one.repository.UsersOneRepository;
+import com.lliscano.databases.two.entity.UsersTwo;
+import com.lliscano.databases.two.repository.UsersTwoRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.repository.JobRepository;
-import org.springframework.batch.core.repository.support.JobRepositoryFactoryBean;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.data.RepositoryItemReader;
 import org.springframework.batch.item.data.RepositoryItemWriter;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
@@ -22,7 +20,6 @@ import org.springframework.core.task.TaskExecutor;
 import org.springframework.data.domain.Sort;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -65,29 +62,15 @@ public class BatchConfig {
                 .taskExecutor(taskExecutor())
                 .build();
     }
-
     @Bean
     public Job processJob(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
         return new JobBuilder("users", jobRepository)
                 .flow(importUsers(jobRepository,transactionManager)).end().build();
     }
-
     @Bean
     public TaskExecutor taskExecutor() {
         SimpleAsyncTaskExecutor asyncTaskExecutor = new SimpleAsyncTaskExecutor();
         asyncTaskExecutor.setConcurrencyLimit(1000);
         return asyncTaskExecutor;
     }
-
-    /*@Bean
-    public JobRepository jobRepository(@Qualifier("oneDataSource") DataSource dataSource,
-                                       PlatformTransactionManager transactionManager) throws Exception {
-        JobRepositoryFactoryBean jobRepositoryFactoryBean = new JobRepositoryFactoryBean();
-        jobRepositoryFactoryBean.setDataSource(dataSource);
-        jobRepositoryFactoryBean.setTransactionManager(transactionManager);
-        jobRepositoryFactoryBean.setIsolationLevelForCreate("ISOLATION_DEFAULT");
-        return jobRepositoryFactoryBean.getObject();
-    }*/
-
-
 }

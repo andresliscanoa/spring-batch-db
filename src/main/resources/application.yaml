@@ -3,8 +3,7 @@ server:
 spring:
   batch:
     jdbc:
-      initialize-schema: NEVER
-      table-prefix: batch.BATCH_
+      initialize-schema: EMBEDDED
     job:
       enabled: true
       name: users
@@ -16,6 +15,11 @@ spring:
     hibernate:
       ddl-auto: none
   datasource:
+    h2:
+      driver-class-name: org.h2.Driver
+      url: jdbc:h2:mem:batch
+      username: embedded
+      password: embedded
     one:
       driver-class-name: org.postgresql.Driver
       url: jdbc:postgresql://localhost:5432/postgres

@@ -1,4 +1,4 @@
-package com.lliscano.two.entity;
+package com.lliscano.databases.two.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

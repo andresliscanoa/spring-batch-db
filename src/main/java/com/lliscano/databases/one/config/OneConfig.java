@@ -1,4 +1,4 @@
-package com.lliscano.one.config;
+package com.lliscano.databases.one.config;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
@@ -19,7 +19,7 @@ import java.util.Objects;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
-        basePackages = {"com.lliscano.one.repository"},
+        basePackages = {"com.lliscano.databases.one.repository"},
         entityManagerFactoryRef = "oneEntityManagerFactory",
         transactionManagerRef = "oneTransactionManager"
 )
@@ -37,7 +37,7 @@ public class OneConfig {
     ) {
         return builder
                 .dataSource(dataSource)
-                .packages("com.lliscano.one.entity")
+                .packages("com.lliscano.databases.one.entity")
                 .build();
     }
 

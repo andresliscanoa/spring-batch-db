@@ -1,4 +1,4 @@
-package com.lliscano.two.config;
+package com.lliscano.databases.two.config;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
@@ -18,7 +18,7 @@ import java.util.Objects;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
-        basePackages = {"com.lliscano.two.repository"},
+        basePackages = {"com.lliscano.databases.two.repository"},
         entityManagerFactoryRef = "twoEntityManagerFactory",
         transactionManagerRef = "twoTransactionManager"
 )
@@ -35,7 +35,7 @@ public class TwoConfig {
     ) {
         return builder
                 .dataSource(dataSource)
-                .packages("com.lliscano.two.entity")
+                .packages("com.lliscano.databases.two.entity")
                 .build();
     }
 

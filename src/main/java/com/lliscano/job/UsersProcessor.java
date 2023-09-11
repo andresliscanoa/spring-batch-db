@@ -1,9 +1,8 @@
 package com.lliscano.job;
 
 
-import com.lliscano.one.dto.UserDTO;
-import com.lliscano.one.entity.UsersOne;
-import com.lliscano.two.entity.UsersTwo;
+import com.lliscano.databases.one.entity.UsersOne;
+import com.lliscano.databases.two.entity.UsersTwo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 

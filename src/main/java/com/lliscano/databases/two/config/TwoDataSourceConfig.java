@@ -1,25 +1,23 @@
-package com.lliscano.one.config;
+package com.lliscano.databases.two.config;
 
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 
 import javax.sql.DataSource;
 
 @Configuration
-public class OneDataSourceConfig {
+public class TwoDataSourceConfig {
     @Bean
-    @ConfigurationProperties("spring.datasource.one")
-    public DataSourceProperties oneDataSourceProperties() {
+    @ConfigurationProperties("spring.datasource.two")
+    public DataSourceProperties twoDataSourceProperties() {
         return new DataSourceProperties();
     }
 
     @Bean
-    @Primary
-    public DataSource oneDataSource() {
-        return oneDataSourceProperties()
+    public DataSource twoDataSource() {
+        return twoDataSourceProperties()
                 .initializeDataSourceBuilder()
                 .build();
     }
