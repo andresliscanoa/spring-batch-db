@@ -10,5 +10,5 @@ RUN mvn clean package -Dmaven.test.skip=true
 FROM openjdk:17.0.1-slim
 LABEL authors="lliscano"
 WORKDIR /opt/app
-COPY --from=BUILD /opt/demo/target/app.jar  app.jar
+COPY --from=BUILD /opt/demo/target/app.jar app.jar
 ENTRYPOINT ["java", "-jar", "app.jar"]
